@@ -1,0 +1,22 @@
+{
+  "name": "todomove",
+  "description": "Syncs delegated-task status with Todomove and connects its MCP server.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Todomove"
+  },
+  "license": "MIT",
+  "userConfig": {
+    "token": {
+      "type": "string",
+      "title": "Connector token",
+      "description": "Todomove connector token — create one from the front-end, shown once.",
+      "sensitive": true
+    },
+    "api_base_url": {
+      "type": "string",
+      "title": "API base URL",
+      "description": "Todomove API base, e.g. https://todomove.ru/api/v1"
+    }
+  }
+}

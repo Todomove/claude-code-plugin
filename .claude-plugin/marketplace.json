@@ -1,0 +1,13 @@
+{
+  "name": "todomove-claude-code-plugin",
+  "owner": {
+    "name": "Todomove"
+  },
+  "plugins": [
+    {
+      "name": "todomove",
+      "source": "./",
+      "description": "Syncs delegated-task status with Todomove and connects its MCP server."
+    }
+  ]
+}
