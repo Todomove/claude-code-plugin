@@ -13,17 +13,17 @@ const path = require("node:path");
 const EVENT = process.argv[2];
 const CONFIG_PATH = path.join(os.homedir(), ".todomove", "config.json");
 const TIMEOUT_MS = 5000;
+const API_BASE_URL = "https://todomove.ru/api/v1";
 
-// Prefer the plugin's own `userConfig` (the same token/URL the bundled `.mcp.json`
+// Prefer the plugin's own `userConfig` (the same token the bundled `.mcp.json`
 // substitutes into its `headers` field via ${user_config.*}) — Claude Code exports it
-// to hook processes as CLAUDE_PLUGIN_OPTION_<KEY>, so one setup step (entering the
+// to hook processes as CLAUDE_PLUGIN_OPTION_TOKEN, so one setup step (entering the
 // token when the plugin is enabled) covers both the MCP connection and these hooks.
 // Falls back to ~/.todomove/config.json for manual runs or if userConfig isn't set.
 function loadConfig() {
   const envToken = process.env.CLAUDE_PLUGIN_OPTION_TOKEN;
-  const envApiBaseUrl = process.env.CLAUDE_PLUGIN_OPTION_API_BASE_URL;
-  if (envToken && envApiBaseUrl) {
-    return { token: envToken, apiBaseUrl: envApiBaseUrl };
+  if (envToken) {
+    return { token: envToken };
   }
 
   try {
@@ -53,16 +53,15 @@ async function main() {
   }
 
   const config = loadConfig();
-  if (!config || !config.token || !config.apiBaseUrl) {
+  if (!config || !config.token) {
     process.stderr.write(
-      `todomove plugin: no valid config at ${CONFIG_PATH} (need "token" and ` +
-        `"apiBaseUrl"), skipping ${EVENT}\n`,
+      `todomove plugin: no valid config at ${CONFIG_PATH} (need "token"), skipping ${EVENT}\n`,
     );
     process.exit(0);
   }
 
   try {
-    const res = await fetch(`${config.apiBaseUrl}/ai/runs/active/state`, {
+    const res = await fetch(`${API_BASE_URL}/ai/runs/active/state`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

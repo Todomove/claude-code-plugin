@@ -2,7 +2,7 @@
   "mcpServers": {
     "todomove": {
       "type": "http",
-      "url": "${user_config.api_base_url}/mcp",
+      "url": "https://todomove.ru/api/v1/mcp",
       "headers": {
         "Authorization": "Bearer ${user_config.token}"
       }

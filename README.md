@@ -12,8 +12,8 @@ separate `claude mcp add` step.
 /plugin install todomove@todomove-claude-code-plugin
 ```
 
-Claude Code prompts for your Todomove connector token and API base URL once, at enable
-time. Both then drive the bundled MCP server and the hooks — nothing else to configure.
+Claude Code prompts for your Todomove connector token once, at enable time. It drives
+the bundled MCP server and the hooks — nothing else to configure.
 
 ## Commands
 
